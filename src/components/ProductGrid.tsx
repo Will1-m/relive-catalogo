@@ -22,7 +22,9 @@ export default function ProductGrid() {
   const PAGE_SIZE = 100
 
   useEffect(() => {
-    axios.get<Producto[]>('/productos.json')
+    // Construye la URL para productos.json usando BASE_URL
+    const jsonUrl = `${import.meta.env.BASE_URL}productos.json`;
+    axios.get<Producto[]>(jsonUrl)
       .then(res => {
         const prefixMap: Record<string, string> = {
           REP: 'Repuestos',
