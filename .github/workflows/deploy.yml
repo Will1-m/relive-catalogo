@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Build y Deploy en GitHub Pages
 
 on:
   push:
@@ -6,16 +6,34 @@ on:
       - main
 
 jobs:
-  pages:
+  build:
+    name: 🛠️ Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Clonar repositorio
+        uses: actions/checkout@v3
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: "18"
-      - run: npm ci
-      - run: npm run build
-      - uses: peaceiris/actions-gh-pages@v3
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Compilar la aplicación
+        run: npm run build
+
+  deploy:
+    name: 🚀 Deploy a Pages
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar repo de nuevo
+        uses: actions/checkout@v3
+
+      - name: Publicar en GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: ./build
