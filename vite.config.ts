@@ -6,6 +6,13 @@ export default defineConfig({
   base: '/relive-catalogo/',
   plugins: [react()],
   build: {
-    sourcemap: false,   // ← desactiva sourcemaps en producción
-    },
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        entryFileNames: `main.js`,
+        chunkFileNames: `assets/[name].js`,
+        assetFileNames: `assets/[name].[ext]`,
+      }
+    }
+  }
 })
