@@ -1,19 +1,17 @@
-//// vite.config.ts
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  base: '/relive-catalogo/',
+  base: '/relive-catalogo/',    // Ruta base en GitHub Pages
   plugins: [react()],
   build: {
-    sourcemap: false,
+    sourcemap: false,           // Evita sourcemaps en producción
     rollupOptions: {
       output: {
-        // Emitir un único bundle main.js sin hash
-        entryFileNames: `main.js`,
-        chunkFileNames: `assets/[name].js`,
-        assetFileNames: `assets/[name].[ext]`,
+        entryFileNames: 'main.js',
+        chunkFileNames: 'assets/[name].js',
+        assetFileNames: 'assets/[name].[ext]'
       }
     }
-  },
+  }
 })
